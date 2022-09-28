@@ -8,7 +8,7 @@ module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
 
     always @ (U,D,T,C or state) beginex
         case (state)
-            C0: begin
+            S0: begin
 		    if (U == 0) and (D == 0) and (T == 0) and (C == 0); 
                         next_state <= S0; 
                     elseif (U == 1) and (D == 0) and (T == 0) and (C == 0);
@@ -21,7 +21,7 @@ module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
 		    	next_state <= S4;
 				
                 end
-            C1: begin
+            S1: begin
                      if (U == 1) and (D == 0) and (T == 0) and (C == 0); 
                         next_state <= S1; 
                     elseif (U == 1) and (D == 1) and (T == 0) and (C == 0);
@@ -31,16 +31,22 @@ module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
 		    elseif (U == 1) and (D == 0) and (T == 0) and (C == 1);
 		    	next_state <= S5;
                 end
-            C2: begin
-                   if (U == 1)and (D == 1) and (T == 1) and (C ==0);
-                        next_state <= S6 
-                    elseif (U == 1 and (D == 1) and (T == 0) and (C == 0);
-                        next_state <= S3;
-	            elseif (U == 1) and (D == 0) and (T == 1) and (C == 0);
-		    	next_state <= S4;
-		    elseif (U == 1) and (D == 0) and (T == 0) and (C == 1);
+            S2: begin
+                   if (U == 1) and (D == 1) and (T == 1) and (C ==0);
+                        next_state <= S6; 
+                    elseif (U == 1) and (D == 1) and (T == 0) and (C == 1);
+                        next_state <= S7;
+		    elseif (U == 0) and (D == 1) and (T == 1) and (C == 0);
 		    	next_state <= S5;
+		    elseif (U == 0) and (D == 1) and (T == 0) and (C == 1);
+		    	next_state <= S6;
                 end
+		
+	    S3: begin
+                   if (U == 1) and (D == 1) and (T == 1) and (C == 1);
+                        next_state <= S10; 
+                end
+	    
             default: 
 				next_state <= S0; 
         endcase
@@ -54,14 +60,13 @@ module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
         else
             state <= next_state;
     end
-	initial state <= 2'b00;
+	initial state <= 4'b0000;
 	
     // Nube combinacional para calcular las salidas
 	 always @ (state) begin
         case (state)
             S0: Y <= 1'b0;
-            S1: Y <= 1'b0;
-            S2: Y <= 1'b1;
+            S1: Y <= 1'b1;
             default: Y <= 1'b1;
         endcase
     end
