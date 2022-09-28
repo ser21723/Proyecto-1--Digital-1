@@ -65,9 +65,9 @@ module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
     // Nube combinacional para calcular las salidas
 	 always @ (state) begin
         case (state)
-            S0: Y <= 1'b0;
-            S1: Y <= 1'b1;
-            default: Y <= 1'b1;
+            S0: a <= 1'b0;
+            S1: a <= 1'b1;
+            default: Y <= 1'b0;
         endcase
     end
 
