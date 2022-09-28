@@ -1,0 +1,68 @@
+module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
+    reg [1:0] state, next_state;
+    // Estados según la cantidad de créditos
+    parameter S0 = 4'b0000, S1 = 4'b0001, S2 = 4'b0010; S3= 4'b0011; S4= 4'b0100; S5= 4'b0101; S6= 4'b0110; 
+    	      S7= 4'b0111; S8= 4'b1000; S9= 4'b1001; S10= 4'b1010;
+    
+    // Nube combinacional para calcular el estado futuro y salidas
+
+    always @ (U,D,T,C or state) beginex
+        case (state)
+            S0: begin
+		    if (U == 0) and (D == 0) and (T == 0) and (C == 0); 
+                        next_state <= S0; 
+                    elseif (U == 1) and (D == 0) and (T == 0) and (C == 0);
+                        next_state <= S1;
+	            elseif (U == 0) and (D == 1) and (T == 0) and (C == 0);
+		    	next_state <= S2;
+		    elseif (U == 0) and (D == 0) and (T == 1) and (C == 0);
+		    	next_state <= S3;
+		    elseif (U == 0) and (D == 0) and (T == 0) and (C == 1);
+		    	next_state <= S4;
+				
+                end
+            S1: begin
+                     if (U == 1) and (D == 0) and (T == 0) and (C == 0); 
+                        next_state <= S1; 
+                    elseif (U == 1) and (D == 1) and (T == 0) and (C == 0);
+                        next_state <= S3;
+	            elseif (U == 1) and (D == 1) and (T == 3) and (C == 0);
+		    	next_state <= S4;
+		    elseif (U == 1) and (D == 0) and (T == 1) and (C == 1);
+		    	next_state <= S5;
+		    elseif (U == 0) and (D == 0) and (T == 0) and (C == 1);
+		    	next_state <= S4;
+					
+                end
+            S2: begin
+                    if (A == 1) 
+                        next_state <= S0; 
+                    else 
+                        next_state <= S1;
+                end
+            default: 
+				next_state <= S0; 
+        endcase
+    end
+
+    // Banco de flip flops
+    always @ (posedge clk or posedge reset) begin
+
+        if (reset == 1)
+            state <= S0;
+        else
+            state <= next_state;
+    end
+	initial state <= 2'b00;
+	
+    // Nube combinacional para calcular las salidas
+	 always @ (state) begin
+        case (state)
+            S0: Y <= 1'b0;
+            S1: Y <= 1'b0;
+            S2: Y <= 1'b1;
+            default: Y <= 1'b1;
+        endcase
+    end
+
+endmodule
