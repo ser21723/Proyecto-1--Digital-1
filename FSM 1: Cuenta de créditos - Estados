@@ -8,7 +8,7 @@ module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
 
     always @ (U,D,T,C or state) beginex
         case (state)
-            S0: begin
+            C0: begin
 		    if (U == 0) and (D == 0) and (T == 0) and (C == 0); 
                         next_state <= S0; 
                     elseif (U == 1) and (D == 0) and (T == 0) and (C == 0);
@@ -21,24 +21,25 @@ module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
 		    	next_state <= S4;
 				
                 end
-            S1: begin
+            C1: begin
                      if (U == 1) and (D == 0) and (T == 0) and (C == 0); 
                         next_state <= S1; 
                     elseif (U == 1) and (D == 1) and (T == 0) and (C == 0);
                         next_state <= S3;
-	            elseif (U == 1) and (D == 1) and (T == 3) and (C == 0);
+	            elseif (U == 1) and (D == 0) and (T == 1) and (C == 0);
 		    	next_state <= S4;
-		    elseif (U == 1) and (D == 0) and (T == 1) and (C == 1);
+		    elseif (U == 1) and (D == 0) and (T == 0) and (C == 1);
 		    	next_state <= S5;
-		    elseif (U == 0) and (D == 0) and (T == 0) and (C == 1);
-		    	next_state <= S4;
-					
                 end
-            S2: begin
-                    if (A == 1) 
-                        next_state <= S0; 
-                    else 
-                        next_state <= S1;
+            C2: begin
+                   if (U == 1)and (D == 1) and (T == 1) and (C ==0);
+                        next_state <= S6 
+                    elseif (U == 1 and (D == 1) and (T == 0) and (C == 0);
+                        next_state <= S3;
+	            elseif (U == 1) and (D == 0) and (T == 1) and (C == 0);
+		    	next_state <= S4;
+		    elseif (U == 1) and (D == 0) and (T == 0) and (C == 1);
+		    	next_state <= S5;
                 end
             default: 
 				next_state <= S0; 
