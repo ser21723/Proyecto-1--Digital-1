@@ -2,7 +2,7 @@ module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
     reg [1:0] state, next_state;
     // Estados según la cantidad de créditos
     parameter S0 = 4'b0000, S1 = 4'b0001, S2 = 4'b0010; S3= 4'b0011; S4= 4'b0100; S5= 4'b0101; S6= 4'b0110; 
-    	      S7= 4'b0111; S8= 4'b1000; S9= 4'b1001; S10= 4'b1010;
+    	      S7= 4'b0111; S10= 4'b1010;
     
     // Nube combinacional para calcular el estado futuro y salidas
 
@@ -65,9 +65,16 @@ module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
     // Nube combinacional para calcular las salidas
 	 always @ (state) begin
         case (state)
-            S0: a <= 1'b0;
-            S1: a <= 1'b1;
-            default: Y <= 1'b0;
+            S0: a <= 10'b0000000000;
+            S1: a <= 10'b0000000001;
+	    S2: a <= 10'b0000000011;
+	    S3: a <= 10'b0000000111;
+	    S4: a <= 10'b0000001111;
+	    S5: a <= 10'b0000011111;
+	    S6: a <= 10'b0000111111;
+	    S7: a <= 10'b0001111111;
+	    S10: a <= 10'b1111111111;
+            default: a <= 10'b0000000000;
         endcase
     end
 
