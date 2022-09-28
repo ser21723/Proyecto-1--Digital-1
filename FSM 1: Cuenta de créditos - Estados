@@ -1,5 +1,5 @@
 module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
-    reg [1:0] state, next_state;
+    reg [3:0] state, next_state;
     // Estados según la cantidad de créditos
     parameter S0 = 4'b0000, S1 = 4'b0001, S2 = 4'b0010; S3= 4'b0011; S4= 4'b0100; S5= 4'b0101; S6= 4'b0110; 
     	      S7= 4'b0111; S10= 4'b1010;
