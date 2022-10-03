@@ -1,4 +1,4 @@
-module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
+module cuenta_creditos (input C, clk, reset, output reg a);
     reg [3:0] state, next_state;
     // Estados según la cantidad de créditos
     parameter S0 = 4'b0000, S1 = 4'b0001, S2 = 4'b0010; S3= 4'b0011; S4= 4'b0100; S5= 4'b0101; S6= 4'b0110; 
@@ -6,31 +6,23 @@ module cuenta_creditos (input U, D, T, C, clk, reset, output reg a);
     
     // Nube combinacional para calcular el estado futuro y salidas
 
-    always @ (U,D,T,C or state) beginex
+    always @ (C or state) begin
         case (state)
             S0: begin
-		    if (U == 0) and (D == 0) and (T == 0) and (C == 0); 
-                        next_state <= S0; 
-                    elseif (U == 1) and (D == 0) and (T == 0) and (C == 0);
-                        next_state <= S1;
-	            elseif (U == 0) and (D == 1) and (T == 0) and (C == 0);
-		    	next_state <= S2;
-		    elseif (U == 0) and (D == 0) and (T == 1) and (C == 0);
-		    	next_state <= S3;
-		    elseif (U == 0) and (D == 0) and (T == 0) and (C == 1);
-		    	next_state <= S4;
-				
+		    if (C == 1); 
+                        next_state <= S1; 
+		    else begin
+                        next_state <= S0;
+	            		    	 end
                 end
             S1: begin
-                     if (U == 1) and (D == 0) and (T == 0) and (C == 0); 
+	     	    if (C == 1); 
                         next_state <= S1; 
-                    elseif (U == 1) and (D == 1) and (T == 0) and (C == 0);
-                        next_state <= S3;
-	            elseif (U == 1) and (D == 0) and (T == 1) and (C == 0);
-		    	next_state <= S4;
-		    elseif (U == 1) and (D == 0) and (T == 0) and (C == 1);
-		    	next_state <= S5;
+		    else begin
+                        next_state <= S0;
+	            		    	 end
                 end
+
             S2: begin
                    if (U == 1) and (D == 1) and (T == 1) and (C ==0);
                         next_state <= S6; 
