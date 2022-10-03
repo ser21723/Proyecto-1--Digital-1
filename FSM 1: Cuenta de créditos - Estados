@@ -1,4 +1,4 @@
-module cuenta_creditos (input C, clk, reset, output reg a);
+module cuenta_creditos (input C, clk, reset, output reg a,pulse);
     reg [3:0] state, next_state;
     // Estados según la cantidad de créditos
     parameter S0 = 4'b0000, S1 = 4'b0001, S2 = 4'b0010; S3= 4'b0011; S4= 4'b0100; S5= 4'b0101; S6= 4'b0110; 
@@ -120,7 +120,7 @@ module cuenta_creditos (input C, clk, reset, output reg a);
 	    S6: a <= 4'b0110;
 	    S7: a <= 4'b0111;
 	    S10: a <= 4'b1010;
-            default: a <= 4'b0000;
+            default: pulse <= 1'b0;
         endcase
     end
 
