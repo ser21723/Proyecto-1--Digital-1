@@ -11,17 +11,28 @@ module top (
     // drive USB pull-up resistor to '0' to disable USB
     assign USBPU = 1'b0;
 	
-    wire A, Y0, Y1, reset, clk;
-	assign A = ~PIN_23;
+    wire C, P1 ,P2 ,P3 ,P4, a, b, c, d, e, R, L, P, N, V, reset, clk;
+	assign C = ~PIN_2;
+	assign P1 = ~PIN_20;
+	assign P2 = ~PIN_21;
+	assign P3 = ~PIN_22;
+	assign P4 = ~PIN_23;
 	assign reset = PIN_6;
 	
-	assign Y0 = PIN_1;
-	assign Y1 = PIN_2;
+	assign b = PIN_6;
+	assign c = PIN_7;
+	assign d = PIN_8;
+	assign e = PIN_8;
+	assign R = PIN_15;
+	assign L = PIN_16;
+	assign P = PIN_17;
+	assign N = PIN_18;
+	assign V = PIN_19;
 	
 	assign clk = counter[25];
 	
-    mealy_01 mealy(A, clk, reset, Y0);
-    moore_01 moore(A, clk, reset, Y1);
+    cuenta_creditos (C, clk, reset, a,b,c,d,e);
+    dispensadora (P1, P2, P3, P4, a, b, c, d, e, clk, reset, S,R,L,P,N,V);
 
     // keep track of time and location in blink_pattern
     reg [25:0] counter;
