@@ -104,6 +104,6 @@ module cuenta_creditos (input C, clk, reset, output reg a,b,c,d);
 		d <= 1'b0;
 		end
         endcase
-    end 
+    end  
 
 endmodule
