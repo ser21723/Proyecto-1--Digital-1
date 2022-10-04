@@ -1,4 +1,4 @@
-module cuenta_creditos (input C, clk, reset, output reg a,b,c,d,e,f);
+module cuenta_creditos (input C, clk, reset, output reg a,b,c,d);
     reg [3:0] state, next_state;
     // Estados según la cantidad de créditos
     parameter S0 = 4'b0000, S1 = 4'b0001, S2 = 4'b0010; S3= 4'b0011; S4= 4'b0100; S5= 4'b0101;
@@ -40,10 +40,9 @@ module cuenta_creditos (input C, clk, reset, output reg a,b,c,d,e,f);
                 end
 		
 	    S4: begin
-	     	    if (C == 1); 
-                     next_state <= S0; 
-	                              end
-                end
+	     	   if (C == 1); 
+                    next_state <= S0;
+                   end
 		
             default: 
 	            next_state <= S0; 
@@ -63,13 +62,47 @@ module cuenta_creditos (input C, clk, reset, output reg a,b,c,d,e,f);
     // Nube combinacional para calcular las salidas
 	 always @ (state) begin
         case (state)
-            S0: a <= 1'b0;
-            S1: b <= 1'b1;
-	    S2: c <= 1'b1;
-	    S3: d <= 1'b1;
-	    S4: e <= 1'b1;
-	    S5: f <= 1'b1;
-            default: a <= 1'b0;
+            S0: begin 
+	    	a <= 1'b0;
+		b <= 1'b0;
+		c <= 1'b0;
+		d <= 1'b0;
+		end
+		
+            S1: begin 
+	    	a <= 1'b1;
+		b <= 1'b0;
+		c <= 1'b0;
+		d <= 1'b0;
+		end
+		
+	    S2: begin 
+	        a <= 1'b1;
+		b <= 1'b1;
+		c <= 1'b0;
+		d <= 1'b0;
+		end 
+		
+	    S3: begin
+	    	a <= 1'b1;
+		b <= 1'b1;
+		c <= 1'b1;
+		d <= 1'b0;
+		end
+		
+	    S4: begin
+	    	a <= 1'b0;
+		b <= 1'b0;
+		c <= 1'b0;
+		d <= 1'b0;
+	   	end 
+		
+            default: begin
+	    	a <= 1'b0;
+		b <= 1'b0;
+		c <= 1'b0;
+		d <= 1'b0;
+		end
         endcase
     end 
 
