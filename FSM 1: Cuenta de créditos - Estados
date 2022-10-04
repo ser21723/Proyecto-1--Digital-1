@@ -1,8 +1,7 @@
-module cuenta_creditos (input C, clk, reset, output reg a);
+module cuenta_creditos (input C, clk, reset, output reg a,b,c,d,e,f);
     reg [3:0] state, next_state;
     // Estados según la cantidad de créditos
-    parameter S0 = 4'b0000, S1 = 4'b0001, S2 = 4'b0010; S3= 4'b0011; S4= 4'b0100; S5= 4'b0101; S6= 4'b0110; 
-    	      S7= 4'b0111; S9: 4'b1000; S8= 4'b1001; S10= 4'b1010;
+    parameter S0 = 4'b0000, S1 = 4'b0001, S2 = 4'b0010; S3= 4'b0011; S4= 4'b0100; S5= 4'b0101;
     
     // Nube combinacional para calcular el estado futuro y salidas
 
@@ -50,48 +49,8 @@ module cuenta_creditos (input C, clk, reset, output reg a);
 		
 	   S5: begin
 	     	    if (C == 1); 
-                        next_state <= S6; 
-		    else begin
-                        next_state <= S5;
-	            		    	 end
-                end
-		
-	   S6: begin
-	     	    if (C == 1); 
-                        next_state <= S7; 
-		    else begin
-                        next_state <= S6;
-	            		    	 end
-                end
-		
-	   S7: begin
-	     	    if (C == 1); 
-                        next_state <= S8; 
-		    else begin
-                        next_state <= S7;
-	            		    	 end
-                end
-		
-	   S8: begin
-	     	    if (C == 1); 
-                        next_state <= S9; 
-		    else begin
-                        next_state <= S8;
-	            		    	 end
-                end
-		
-	   S9: begin
-	     	    if (C == 1); 
-                        next_state <= S10; 
-		    else begin
-                        next_state <= S9;
-	            		    	 end
-                end
-		
-	   S10: begin
-	     	    if (C == 1); 
                         next_state <= S0; 
-                    end
+                end
 		
             default: 
 	            next_state <= S0; 
@@ -111,16 +70,13 @@ module cuenta_creditos (input C, clk, reset, output reg a);
     // Nube combinacional para calcular las salidas
 	 always @ (state) begin
         case (state)
-            S0: a <= 4'b0000;
-            S1: a <= 4'b0001;
-	    S2: a <= 4'b0010;
-	    S3: a <= 4'b0011;
-	    S4: a <= 4'b0100;
-	    S5: a <= 4'b0101;
-	    S6: a <= 4'b0110;
-	    S7: a <= 4'b0111;
-	    S10: a <= 4'b1010;
-            default: a <= 4'b0000;
+            S0: a <= 1'b0;
+            S1: b <= 1'b1;
+	    S2: c <= 1'b1;
+	    S3: d <= 1'b1;
+	    S4: e <= 1'b1;
+	    S5: f <= 1'b1;
+            default: a <= 1'b0;
         endcase
     end
 
