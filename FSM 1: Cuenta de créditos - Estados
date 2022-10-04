@@ -41,15 +41,8 @@ module cuenta_creditos (input C, clk, reset, output reg a,b,c,d,e,f);
 		
 	    S4: begin
 	     	    if (C == 1); 
-                        next_state <= S5; 
-		    else begin
-                        next_state <= S4;
-	            		    	 end
-                end
-		
-	   S5: begin
-	     	    if (C == 1); 
-                        next_state <= S0; 
+                     next_state <= S0; 
+	                              end
                 end
 		
             default: 
