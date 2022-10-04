@@ -1,4 +1,4 @@
-module dispensadora (input  P1, P2, P3, P4, a, b, c, d, e, f, clk, reset, output reg R,L,P,N,V);
+module dispensadora (input  P1, P2, P3, P4, a, b, c, d, e, clk, reset, output reg S,R,L,P,N,V);
     reg [3:0] state, next_state;
     // Estados según la cantidad de créditos
     parameter S0 = 4'b0000, S1 = 4'b0001, S2 = 4'b0010; S3= 4'b0011; S4= 4'b0100;
@@ -32,7 +32,7 @@ module dispensadora (input  P1, P2, P3, P4, a, b, c, d, e, f, clk, reset, output
                                  end
                 end
 		
-	          S3: begin
+	   S3: begin
             
                 if (P4 == 1) and (a == 0) 
                   next_state <= S0; 
@@ -40,15 +40,7 @@ module dispensadora (input  P1, P2, P3, P4, a, b, c, d, e, f, clk, reset, output
                   next_state <= S4;
                                  end
                 end
-		
-	          S4: begin
-                if (P4 == 1) and (a == 0) 
-                  next_state <= S0; 
-                else if (P4 == 1) and (e == 1)
-                  next_state <= S4;
-                                 end
-                end
-
+		3
             default: 
 	            next_state <= S0; 
         endcase
@@ -67,13 +59,13 @@ module dispensadora (input  P1, P2, P3, P4, a, b, c, d, e, f, clk, reset, output
     // Nube combinacional para calcular las salidas
 	 always @ (state) begin
         case (state)
-            S0: a <= 1'b0;
-            S1: b <= 1'b1;
-	    S2: c <= 1'b1;
-	    S3: d <= 1'b1;
-	    S4: e <= 1'b1;
-	    S5: f <= 1'b1;
-            default: a <= 1'b0;
+            S0: S <= 1'b0;
+            S1: R <= 1'b1;
+	    S2: L <= 1'b1;
+	    S3: P <= 1'b1;
+	    S4: N <= 1'b1;
+	    S5: V <= 1'b1;
+            default: S <= 1'b0;
         endcase
     end 
 
