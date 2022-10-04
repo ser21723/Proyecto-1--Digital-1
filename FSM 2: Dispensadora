@@ -1,1 +1,80 @@
+module dispensadora (input  P1, P2, P3, P4, a, b, c, d, e, f, clk, reset, output reg R,L,P,N,V);
+    reg [3:0] state, next_state;
+    // Estados según la cantidad de créditos
+    parameter S0 = 4'b0000, S1 = 4'b0001, S2 = 4'b0010; S3= 4'b0011; S4= 4'b0100;
+    
+    // Nube combinacional para calcular el estado futuro y salidas
 
+    always @ (C or state) begin
+        case (state)
+            S0: begin
+                if (P1 == 1) and (a == 0) 
+                  next_state <= S0; 
+                else if (P1 == 1) and (b == 1)
+                  next_state <= S1;
+                                 end
+                end
+                
+            S1: begin
+                if (P2 == 1) and (a == 0) 
+                  next_state <= S0; 
+                else if (P2 == 1) and (c == 1)
+                  next_state <= S2;
+                                 end
+                end
+
+            S2: begin
+            
+                if (P3 == 1) and (a == 0) 
+                  next_state <= S0; 
+                else if (P3 == 1) and (d == 1)
+                  next_state <= S3;
+                                 end
+                end
+		
+	          S3: begin
+            
+                if (P4 == 1) and (a == 0) 
+                  next_state <= S0; 
+                else if (P4 == 1) and (e == 1)
+                  next_state <= S4;
+                                 end
+                end
+		
+	          S4: begin
+                if (P4 == 1) and (a == 0) 
+                  next_state <= S0; 
+                else if (P4 == 1) and (e == 1)
+                  next_state <= S4;
+                                 end
+                end
+
+            default: 
+	            next_state <= S0; 
+        endcase
+    end
+
+    // Banco de flip flops
+    always @ (posedge clk or posedge reset) begin
+
+        if (reset == 1)
+            state <= S0;
+        else
+            state <= next_state;
+    end
+	initial state <= 4'b0000;
+	
+    // Nube combinacional para calcular las salidas
+	 always @ (state) begin
+        case (state)
+            S0: a <= 1'b0;
+            S1: b <= 1'b1;
+	    S2: c <= 1'b1;
+	    S3: d <= 1'b1;
+	    S4: e <= 1'b1;
+	    S5: f <= 1'b1;
+            default: a <= 1'b0;
+        endcase
+    end 
+
+endmodule
