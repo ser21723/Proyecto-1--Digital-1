@@ -1,4 +1,4 @@
-module dispensadora (input  P1, P2, P3, P4, a, b, c, d, e, clk, reset, output reg S,R,L,P,N,V);
+module dispensadora (input  P1, P2, P3, P4, a, b, c, d, clk, reset, output reg S,R,L,P,N,V);
     reg [3:0] state, next_state;
     // Estados según la cantidad de créditos
     parameter S0 = 4'b0000, S1 = 4'b0001, S2 = 4'b0010; S3= 4'b0011; S4= 4'b0100;
