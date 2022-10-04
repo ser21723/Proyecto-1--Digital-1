@@ -78,6 +78,6 @@ module cuenta_creditos (input C, clk, reset, output reg a,b,c,d,e,f);
 	    S5: f <= 1'b1;
             default: a <= 1'b0;
         endcase
-    end
+    end 
 
 endmodule
